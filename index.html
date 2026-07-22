@@ -1,0 +1,11 @@
+pip install flask pyyaml stripe
+export STRIPE_SECRET_KEY=sk_live_DEIN_KEY_VON_STRIPE_DASHBOARD
+python black-six-all-in-one.py
+# Öffne http://localhost:5000
+session = stripe.checkout.Session.create(
+  line_items=[{'price_data': {'currency':'eur','unit_amount': price*100, 'product_data':{'name': prod['name']}}, 'quantity':1}],
+  mode='payment',
+  success_url='.../success',
+  cancel_url='.../cancel'
+)
+return redirect(session.url) # <- Das ist ein echter, funktionierender Link
